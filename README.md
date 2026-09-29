@@ -141,16 +141,15 @@ Each member records their contributions here.
 
 | Date       | Work Completed / Notes |
 |------------|------------------------|
-| YYYY-MM-DD | [Description of task]  |
-| YYYY-MM-DD | [Description of task]  |
+| 2026-09-28 | Implemented the shell’s prompt, command execution, expansions, redirection, piping, background jobs, built-ins, and command history.  |
 
 ## Meetings
 Document in-person meetings, their purpose, and what was discussed.
 
 | Date       | Attendees         | Topics Discussed | Outcomes / Decisions |
 |------------|-------------------|------------------|----------------------|
-| YYYY-MM-DD | Pragun, Upi, Liam | [Agenda items]   | [Actions/Next steps] |
-| YYYY-MM-DD | Pragun, Upi, Liam | [Agenda items]   | [Actions/Next steps] |
+| 2026-09-28 | Pragun, Upi, Liam | Debugging the shell|Testing in linprog |
+
 
 ## Bugs
 - **Bug 1 – `&` must be its own token** (runtime): A command is only run in the
