@@ -12,9 +12,9 @@
 typedef struct {
     int active;
     int number;
-    pid_t pids[3];
+    pid_t *pids;    /* one PID per command in the pipeline */
+    int *finished;  /* finished[i] is 1 once pids[i] has been reaped */
     int count;
-    int finished[3];
     char *command;
 } Job;
 
@@ -25,7 +25,11 @@ static void finish_job(Job *job)
 {
     printf("[%d] + done %s\n", job->number, job->command);
     free(job->command);
+    free(job->pids);
+    free(job->finished);
     job->command = NULL;
+    job->pids = NULL;
+    job->finished = NULL;
     job->active = 0;
 }
 
@@ -46,8 +50,14 @@ int add_background_job(const pid_t *pids, int count, const char *line)
     }
 
     char *copy = malloc(strlen(line) + 1);
-    if (copy == NULL) {
+    pid_t *pid_copy = malloc(count * sizeof(pid_t));
+    int *finished = malloc(count * sizeof(int));
+
+    if (copy == NULL || pid_copy == NULL || finished == NULL) {
         perror("malloc");
+        free(copy);
+        free(pid_copy);
+        free(finished);
         return -1;
     }
     strcpy(copy, line);
@@ -64,6 +74,8 @@ int add_background_job(const pid_t *pids, int count, const char *line)
     job->number = next_job_number++;
     job->count = count;
     job->command = copy;
+    job->pids = pid_copy;
+    job->finished = finished;
 
     for (int i = 0; i < count; i++) {
         job->pids[i] = pids[i];
@@ -109,7 +121,7 @@ void print_jobs(void)
 
     for (int i = 0; i < MAX_JOBS; i++) {
         if (jobs[i].active) {
-            printf("[%d]+ %ld running %s\n",
+            printf("[%d]+ %ld %s\n",
                    jobs[i].number,
                    (long)jobs[i].pids[jobs[i].count - 1],
                    jobs[i].command);

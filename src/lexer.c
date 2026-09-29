@@ -50,11 +50,11 @@ tokenlist *get_tokens(char *input) {
 	char *buf = (char *)malloc(strlen(input) + 1);
 	strcpy(buf, input);
 	tokenlist *tokens = new_tokenlist();
-	char *tok = strtok(buf, " ");
+	char *tok = strtok(buf, " \t");
 	while (tok != NULL)
 	{
 		add_token(tokens, tok);
-		tok = strtok(NULL, " ");
+		tok = strtok(NULL, " \t");
 	}
 	free(buf);
 	return tokens;
