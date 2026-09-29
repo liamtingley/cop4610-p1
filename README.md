@@ -65,6 +65,11 @@ with redirection), background processing, and the internal commands `exit`,
   (`builtins.c`, `history.c`, `main.c`).
 - **Assigned to**: Liam, Pragun
 
+### AFTERWARDS DIVISION OF LABOR
+- Liam : Implemented the shell’s prompt, command execution, expansions, redirection, piping, background jobs, built-ins, and command history. Tested it on macOS and linprog, fixed a duplicate pipeline call, and set up the shared GitHub repository.
+
+- Pragun : Debugged the shell and created the documentation for project  
+
 ### Extra Credit
 - **Responsibilities**: Unlimited number of pipes, piping combined with I/O
   redirection, and running the shell from within itself (shell-ception)
